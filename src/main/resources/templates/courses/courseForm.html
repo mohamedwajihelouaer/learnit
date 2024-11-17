@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layouts :: header"></head>
+
+<body>
+
+<nav th:replace="layouts :: navbar"></nav>
+
+<br>
+
+<div class="container">
+    <form th:action="@{/courses/save}" th:object="${course}" method="POST">
+
+        <div class="form-group row">
+            <input type="text" placeholder="course Title" th:field="*{title}">
+        </div>
+
+        <div class="form-group row">
+            <label>
+                <select th:field="${course.category}">
+                    <option th:value="NOTSTARTED"> Tech </option>
+                    <option th:value="INPROGRESS"> Soft-Skill</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="form-group row">
+            <textarea type="text" placeholder="Enter course Description" th:field="${course.description}"></textarea>
+        </div>
+
+        <div class="form-group row">
+            <label>
+                <select th:field="*{students}" multiple="multiple">
+                    <option th:each = "employee : ${allstudents}"
+                            th:value = "${employee.employeeId}"
+                            th:text = "${employee.firstName}">
+                    </option>
+                </select>
+            </label>
+        </div>
+
+        course Start Date:
+        <div class="form-group row">
+            <input id="dp3" type="text" class="mb-4 col-2 col-xs-4" value="Start Date" th:field="${course.startDate}">
+        </div>
+
+
+        course End Date:
+        <div class="form-group row">
+            <input id="dp4" type="text" class="mb-4 col-2 col-xs-4" value="End Date" th:field="${course.endDate}">
+        </div>
+
+        <script type="text/javascript">
+            $('#dp3').datepicker();
+            $('#dp4').datepicker();
+        </script>
+
+
+        <button class="btn btn-info col-2" type="submit">Enter course</button>
+
+    </form>
+</div>
+
+</body>
+
+</html>
